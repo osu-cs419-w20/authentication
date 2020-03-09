@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
+import fetch from 'isomorphic-unfetch';
 
 function Login() {
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
     console.log("== Logging in with these credentials:", username, password);
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      header: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const body = await res.json();
+    if (res.status === 200) {
+      console.log("== Successful login, document.cookie:", document.cookie);
+    } else {
+      alert("Error: " + body.err);
+    }
   }
 
   return (

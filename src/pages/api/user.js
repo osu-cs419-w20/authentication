@@ -1,3 +1,5 @@
+import { requireAuth } from '../../utils/auth';
+
 import USER from '../../data/user';
 
 function handler(req, res) {
@@ -5,4 +7,4 @@ function handler(req, res) {
   res.status(200).json(body);
 }
 
-export default handler;
+export default requireAuth(handler);
