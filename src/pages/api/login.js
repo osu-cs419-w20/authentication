@@ -8,7 +8,7 @@ function credentialsAreValid(username, password) {
 
 export default (req, res) => {
   if (req.method === "POST") {
-    const { username, password } = JSON.parse(req.body);
+    const { username, password } = req.body;
     console.log("== req.body:", req.body);
     console.log("== received credentials:", username, password);
     if (credentialsAreValid(username, password)) {
