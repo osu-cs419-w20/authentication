@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import fetch from 'isomorphic-unfetch';
+import { useRouter } from 'next/router';
 
 function Login() {
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
+  const router = useRouter();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -18,6 +20,7 @@ function Login() {
     const body = await res.json();
     if (res.status === 200) {
       console.log("== Successful login, document.cookie:", document.cookie);
+      router.push(router.query.redirect || '/');
     } else {
       alert("Error: " + body.err);
     }
